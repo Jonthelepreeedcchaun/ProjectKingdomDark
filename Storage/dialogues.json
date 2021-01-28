@@ -1,0 +1,114 @@
+{
+    "advisor": {
+        "Position": [
+            1500,
+            650
+        ],
+        "Immutable_Dialogue_List": [
+            "tutorial"
+        ],
+        "Dialogue_List": [
+            "tutorial"
+        ],
+        "Dialogues": {
+            "tutorial": {
+                "0": {
+                    "Char": "advisor",
+                    "Message": "Good morning, Lord Hatlor."
+                },
+                "1": {
+                    "Char": "hatlor",
+                    "Message": "Hello, my loyal advisor."
+                },
+                "2": {
+                    "Char": "advisor",
+                    "Message": "We have a lot to go over today."
+                },
+                "3": {
+                    "Char": "advisor",
+                    "Message": "Er, on second thought, this game doesn't seem to have a whole lot of mechanics in it yet."
+                },
+                "4": {
+                    "Char": "advisor",
+                    "Message": "When the game is done, this dialogue will be a lot more helpful."
+                },
+                "5": {
+                    "Char": "hatlor",
+                    "Message": "..."
+                },
+                "6": {
+                    "Char": "hatlor",
+                    "Message": "Ok then, I guess?"
+                },
+                "7": {
+                    "Char": "advisor",
+                    "Message": "Smell ya later, my lord."
+                }
+            }
+        },
+        "Ask_Line": {},
+        "Yes_Line": {},
+        "No_Line": {}
+    },
+    "jester": {
+        "Position": [
+            1500,
+            500
+        ],
+        "Immutable_Dialogue_List": [
+            "carnival_offer"
+        ],
+        "Dialogue_List": [
+            "carnival_offer"
+        ],
+        "Dialogues": {
+            "carnival_offer": {
+                "0": {
+                    "Char": "jester",
+                    "Message": "Howdy-do there, Lord Hatlor!"
+                },
+                "1": {
+                    "Char": "hatlor",
+                    "Message": "I'm sorry, who are you?"
+                },
+                "2": {
+                    "Char": "jester",
+                    "Message": "Why, I'm your marvelous court jester, of course!"
+                },
+                "3": {
+                    "Char": "jester",
+                    "Message": "Anyways, I was hoping that we could reach an arrangement."
+                },
+                "4": {
+                    "Char": "jester",
+                    "Message": "I want to start a carnival! It's been my dream to! And your kingdom is a splendid spot for one..."
+                },
+                "5": {
+                    "Char": "hatlor",
+                    "Message": "Ok, jester. What's in it for me?"
+                },
+                "6": {
+                    "Char": "jester",
+                    "Message": "My carnival would draw crowds, happy happy crowds!"
+                },
+                "7": {
+                    "Char": "jester",
+                    "Message": "I'm certain that you would see your subjects much more entertained, and I'm sure that some of those among the crowds will join your kingdom!"
+                },
+                "8": {
+                    "Char": "jester",
+                    "Message": "All it takes from you is a bit of gold everyday. Something along the lines of 10 gold a day..."
+                }
+            }
+        },
+        "Ask_Line": {
+            "carnival_offer": "So, whaddaya say?"
+        },
+        "Yes_Line": {
+            "carnival_offer": "I'm so happy, happy! See you tomorrow, Lord Hatlor!"
+        },
+        "No_Line": {
+            "carnival_offer": "Well, it was worth a shot. Thanks for hearing me out."
+        }
+    }
+}
