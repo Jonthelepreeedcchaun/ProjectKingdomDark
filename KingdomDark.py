@@ -52,7 +52,7 @@ for this in os.listdir('Ass/'):
 
 menu = ass(['menu.png'])
 
-mode = "main_menu"
+mode = "write"
 origin_taco = chronic_tacos.time(); ticksync.tick = 1
 while True:
     inpt.update(jsondata, screen)
@@ -77,7 +77,7 @@ while True:
             if mouse.rect_over == 'curtain' and inpt.t1:
                 time = 'day'
         if time == "day":
-            view.pose(screen, oxygen, 'be', (550, 210), ticksync.tick, -2, (500, 500, 670, 490))
+            view.pose(screen, oxygen, 'be', (550, 180), ticksync.tick, -2, (500, 470, 740, 1000))
             opencurtain.pose(screen, oxygen, 'be', (587, 122), ticksync.tick, 1.5)
             throneroom.pose(screen, oxygen, 'be', (0, 20), ticksync.tick)
             character_dict = {advisor: 1, jester: 2}

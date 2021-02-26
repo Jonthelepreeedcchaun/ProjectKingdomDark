@@ -106,10 +106,17 @@ class text_box:
                 self.bubble_pose = 'idle'
         if self.decision != 'True' and self.decision != False:
             self.scroll_ass.pose(screen, oxygen, 'be', (x - 100, y - 100), tick, 2)
-            self.render(jsondata.dialogues[character][self.decision + '_Line'][self.key], 0, 0, x_len + 100, 69, (69, 69, 69))
-            self.RnD(screen, input, jsondata.dialogues[character][self.decision + '_Line'][self.key], x + 230 + paralax_x/2, y + 30 + paralax_y/2, x_len, time, tick, speed, size, color)
+            self.render(jsondata.dialogues[character][self.decision + '_Line'][self.key]['Line'], 0, 0, x_len + 100, 69, (69, 69, 69))
+            try:
+                jsondata.events[jsondata.dialogues[character][self.decision + '_Line'][self.key]['Result'][0]] = jsondata.dialogues[character][self.decision + '_Line'][self.key]['Result'][1]
+                jsondata.save('events')
+            except:
+                pass
+            self.RnD(screen, input, jsondata.dialogues[character][self.decision + '_Line'][self.key]['Line'], x + 230 + paralax_x/2, y + 30 + paralax_y/2, x_len, time, tick, speed, size, color)
             self.face_ass_back_dict[character].pose(screen, oxygen, 'be', (x - 420, y - 150), tick, 2)
             self.face_ass_dict[character].pose(screen, oxygen, 'be', (x - 420, y - 150), tick, 5)
+            if input.t1 and input.mouse.rect_over == None:
+                self.browse += 1
     def clear(self):
         self.linedict = None
     def RnD(self, screen, input, text, x, y, x_len, time, tick, speed, size, color):

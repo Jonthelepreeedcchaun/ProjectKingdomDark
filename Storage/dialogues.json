@@ -46,9 +46,23 @@
                 }
             }
         },
-        "Ask_Line": {},
-        "Yes_Line": {},
-        "No_Line": {}
+        "Ask_Line": {
+            "tutorial": "Did you get all of that, my Lord?"
+        },
+        "Yes_Line": {
+            "tutorial": {
+                "Line": "Very good.",
+                "Result": [
+                    "tutorial_incomplete",
+                    1
+                ]
+            }
+        },
+        "No_Line": {
+            "tutorial": {
+                "Line": "Bah."
+            }
+        }
     },
     "jester": {
         "Position": [
@@ -93,11 +107,11 @@
                 },
                 "7": {
                     "Char": "jester",
-                    "Message": "I'm certain that you would see your subjects much more entertained, and I'm sure that some of those among the crowds will join your kingdom!"
+                    "Message": "I think that you would see your subjects much more entertained..."
                 },
                 "8": {
                     "Char": "jester",
-                    "Message": "All it takes from you is a bit of gold everyday. Something along the lines of 10 gold a day..."
+                    "Message": "All it takes from you is a small investment of 200 gold."
                 }
             }
         },
@@ -105,10 +119,18 @@
             "carnival_offer": "So, whaddaya say?"
         },
         "Yes_Line": {
-            "carnival_offer": "I'm so happy, happy! See you tomorrow, Lord Hatlor!"
+            "carnival_offer": {
+                "Line": "I'm so happy, happy! See you tomorrow, Lord Hatlor!",
+                "Result": [
+                    "carnival",
+                    1
+                ]
+            }
         },
         "No_Line": {
-            "carnival_offer": "Well, it was worth a shot. Thanks for hearing me out."
+            "carnival_offer": {
+                "Line": "Well, it was worth a shot. Thanks for hearing me out."
+            }
         }
     }
 }

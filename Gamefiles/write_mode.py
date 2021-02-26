@@ -5,7 +5,7 @@ def clear():
 
 def check_dict(jsondata, character):
     dict = jsondata.dialogues[character]
-    checkdict = {"Immutable_Dialogue_List": [], "Dialogue_List": [], "Position": [1500, 650], "Dialogues": {}}
+    checkdict = {"Immutable_Dialogue_List": [], "Dialogue_List": [], "Position": [1500, 650], "Dialogues": {}, "Ask_Line": {}, "Yes_Line": {}, "No_Line": {}}
     if not dict.keys() == checkdict.keys():
         print("The dialogues dictionary for " + character + " is incomplete:")
         print("    Current keys - " + str(dict.keys())[11:len(str(dict.keys()))  - 1])
@@ -44,6 +44,47 @@ def position_access(jsondata, character):
     clear()
     input('Value saved successfully. Returning to access menu. (Enter)')
     access_character_attributes(jsondata, character)
+
+def add_question(jsondata, character, dialogue, scroll):
+    jsondata.dialogues[character]['Yes_Line'][dialogue] = {'Line': 'NoneType'}
+    jsondata.dialogues[character]['No_Line'][dialogue] = {'Line': 'NoneType'}
+    clear()
+    print('Type the question that ' + character + ' asks at the end of the dialogue "' + dialogue + '".')
+    print('Ex: Do you accept, Lord Hatlor?\n')
+    answer = input()
+    jsondata.dialogues[character]['Ask_Line'][dialogue] = answer
+    clear()
+    print('What does ' + character + ' say if the player accepts?')
+    print('Ex: Thank you, my Lord.\n')
+    answer = input()
+    jsondata.dialogues[character]['Yes_Line'][dialogue]["Line"] = answer
+    clear()
+    answer = input('Does saying yes cause an event? (y/n)\n')
+    if answer == 'y':
+        answer = input('What event?\n')
+        if not answer in jsondata.events:
+            jsondata.events.update({answer: 0})
+            jsondata.save('events')
+        jsondata.dialogues[character]['Yes_Line'][dialogue].update({'Result': [answer, 1]})
+        jsondata.save('dialogues')
+    clear()
+    print('What does ' + character + ' say if the player does not accept?')
+    print('Ex: I understand, my Lord.\n')
+    answer = input()
+    jsondata.dialogues[character]['No_Line'][dialogue]["Line"] = answer
+    clear()
+    answer = input('Does saying yes cause an event? (y/n)\n')
+    if answer == 'y':
+        answer = input('What event?\n')
+        if not answer in jsondata.events:
+            jsondata.events.update({answer: 0})
+            jsondata.save('events')
+        jsondata.dialogues[character]['Yes_Line'][dialogue].update({'Result': [answer, 1]})
+        jsondata.save('dialogues')
+    clear()
+    jsondata.save('dialogues')
+    input('Question and responses saved. Returning to dialogue writing menu. (Enter)')
+    write_dialogue(jsondata, character, dialogue, scroll)
 
 def write_dialogue(jsondata, character, dialogue, scroll):
     clear()
@@ -152,6 +193,20 @@ def write_dialogue(jsondata, character, dialogue, scroll):
                 print('Returning to dialogue edit menu.')
                 input('(Enter)\n')
                 write_dialogue(jsondata, character, dialogue, scroll)
+        elif answer == 'add_q':
+            if dialogue in jsondata.dialogues[character]['Ask_Line']:
+                clear()
+                print('There is already a question for this dialogue:')
+                print('Question - ' + jsondata.dialogues[character]['Ask_Line'][dialogue])
+                print('Yes_Line - ' + jsondata.dialogues[character]['Yes_Line'][dialogue]["Line"])
+                print('No_Line - ' + jsondata.dialogues[character]['No_Line'][dialogue]["Line"])
+                answer = input('Do you want to edit this dialogue? (y/n)\n')
+                if answer == 'y':
+                    add_question(jsondata, character, dialogue, scroll)
+                else:
+                    write_dialogue(jsondata, character, dialogue, scroll)
+            else:
+                add_question(jsondata, character, dialogue, scroll)
         else:
             write_dialogue_instruction(jsondata, character, dialogue, scroll)
 
@@ -164,6 +219,7 @@ def write_dialogue_instruction(jsondata, character, dialogue, scroll = 0):
     print('Type edit to edit the current piece of dialogue.')
     print('To create a new piece of dialogue ahead of the current, type add_next.')
     print('To create one before, type add_prev.')
+    print('To add or edit a question to the end of the dialogue, type add_q.')
     answer = input('(Enter)\n')
     if answer != 'back':
         write_dialogue(jsondata, character, dialogue, scroll)
