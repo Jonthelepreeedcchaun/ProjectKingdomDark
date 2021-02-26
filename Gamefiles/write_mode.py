@@ -1,7 +1,16 @@
+
+from cursesmenu import *
+from cursesmenu.items import *
+
 def clear():
     import os
     if os.name == 'nt': _ = os.system('cls')
     else: _ = os.system('clear')
+
+def makemenu(list, title='Please Select One'):
+    list.append('Exit')
+    menu = SelectionMenu(list, title=title, show_exit_option=False)
+    return list[menu.get_selection(list, title=title, exit_option=False)]
 
 def check_dict(jsondata, character):
     dict = jsondata.dialogues[character]
@@ -323,7 +332,8 @@ def write_mode(jsondata):
     print('The current characters with dialogue are:')
     for this in jsondata.dialogues:
         print('\n    ' + this)
-    character = input('\nEnter the character you want to access: \n')
+    menulist = list(jsondata.dialogues.keys())
+    character = makemenu(menulist, title="Enter the character you want to access")
     if character in jsondata.dialogues:
         access_character_attributes(jsondata, character)
     if not character in jsondata.dialogues:
@@ -337,3 +347,6 @@ def write_mode(jsondata):
             create(jsondata, character)
         else:
             write_mode(jsondata)
+
+def pyexit():
+    pass
