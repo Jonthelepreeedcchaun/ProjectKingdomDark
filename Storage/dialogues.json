@@ -5,10 +5,12 @@
             650
         ],
         "Immutable_Dialogue_List": [
-            "tutorial"
+            "tutorial",
+            "tax"
         ],
         "Dialogue_List": [
-            "tutorial"
+            "tutorial",
+            "tax"
         ],
         "Dialogues": {
             "tutorial": {
@@ -44,23 +46,40 @@
                     "Char": "advisor",
                     "Message": "Smell ya later, my lord."
                 }
+            },
+            "tax": {
+                "0": {
+                    "Char": "advisor",
+                    "Message": "I bring good news, my liege."
+                },
+                "1": {
+                    "Char": "hatlor",
+                    "Message": "Go on, my loyal advisor."
+                },
+                "2": {
+                    "Char": "advisor",
+                    "Message": "Your people have paid their taxes. I'm sure you could find a constructive way to use their gold."
+                }
             }
         },
         "Ask_Line": {
-            "tutorial": "Did you get all of that, my Lord?"
+            "tutorial": "Did you get all of that, my Lord?",
+            "tax": "Shall we add the money to the coffers, my Lord?"
         },
         "Yes_Line": {
             "tutorial": {
-                "Line": "Very good.",
-                "Result": [
-                    "tutorial_incomplete",
-                    1
-                ]
+                "Line": "Very good."
+            },
+            "tax": {
+                "Line": "Very good."
             }
         },
         "No_Line": {
             "tutorial": {
                 "Line": "Bah."
+            },
+            "tax": {
+                "Line": "Well, I guess I will give them back their gold."
             }
         }
     },

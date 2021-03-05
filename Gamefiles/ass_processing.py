@@ -17,9 +17,10 @@ class ass:
         image = self.images[self.name + '_' + pose + str(tick)]
         pos = (xy_tuple[0] + paralax_x/weight, xy_tuple[1] + paralax_y/weight)
         if crop == None:
-            screen.blit(image, pos)
+            rect = screen.blit(image, pos)
         else:
-            screen.blit(image, pos, crop)
+            rect = screen.blit(image, pos, crop)
+        return rect
 
 class hatlor_obj(ass):
     def __init__(self, image_list):
@@ -67,6 +68,20 @@ class person_obj(ass):
             return True
         else:
             return False
+
+class arm_obj(ass):
+    def __init__(self, image_list):
+        super().__init__(image_list)
+        self.name = 'arm'
+        self.x_pos = -1920/2
+        self.y_pos = 1080/2
+        self.eleventhsecond = None
+    def point(self, screen, oxygen, pose, inpt, tick, time):
+        self.pose(screen, oxygen, pose, (self.x_pos, self.y_pos), tick)
+        if not self.eleventhsecond == str(time).split('.')[1][:4]:
+            self.eleventhsecond = str(time).split('.')[1][:4]
+            self.x_pos += (inpt.mx - self.x_pos - 1900)/20
+            self.y_pos += (inpt.my - self.y_pos)/20
 
 class gen_obj(ass):
     def __init__(self, image_list):

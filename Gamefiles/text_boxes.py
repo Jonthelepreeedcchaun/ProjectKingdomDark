@@ -9,7 +9,6 @@ class text_box:
         self.font = 1; self.ticktrack = 1; self.decision = False; self.key = None
         self.scroll_ass = ass(['scroll_be1.png', 'scroll_be2.png', 'scroll_be3.png'], path = 'Ass/Textbox/', name = 'scroll');
         self.face_ass_dict = {}; self.face_ass_back_dict = {}
-        character_list = ['hatlor']
         for this in os.listdir(os.path.join('Ass','Textbox')):
             if this[-8:] == "_be3.png" and not this[:6] == "scroll":
                 if not 'back' in this:
@@ -22,6 +21,7 @@ class text_box:
         self.decision = False
         self.donewriting = False
         self.key = None
+        self.linedict = None
     def message_display(self, screen, text, x, y, size, color, tick = None):
         import pygame as pg
         font = None
@@ -40,14 +40,14 @@ class text_box:
         screen.blit(TextSurf, TextRect)
         dimension = largeText.render(text, True, color).get_rect()
         return(TextRect)
-    def box(self, screen, oxygen, jsondata, input, text_dict, x, y, x_len, time, tick, speed = 0.1, size = 45, color = (0, 0, 0)):
+    def box(self, screen, oxygen, jsondata, input, text_dict, key, x, y, x_len, time, tick, speed = 0.0001, size = 45, color = (0, 0, 0)):
         paralax_x, paralax_y = oxygen.paralax_x, oxygen.paralax_y
         self.dialength = len(text_dict)
         character = text_dict[str(self.browse)]['Char']
         if character != 'hatlor':
             alt_character = character
         if self.key == None:
-            self.key = jsondata.dialogues[character]['Dialogue_List'][0]
+            self.key = key
         if self.decision == False:
             self.scroll_ass.pose(screen, oxygen, 'be', (x - 100, y - 100), tick, 2)
             self.RnD(screen, input, text_dict[str(self.browse)]['Message'], x + 230 + paralax_x/2, y + 30 + paralax_y/2, x_len, time, tick, speed, size, color)
@@ -77,7 +77,6 @@ class text_box:
                     self.browse -= 1
         if self.decision == 'True':
             self.scroll_ass.pose(screen, oxygen, 'be', (x - 250, y - 100), tick, 2)
-            self.render(jsondata.dialogues[character]['Ask_Line'][self.key], 0, 0, x_len + 100, 69, (69, 69, 69))
             self.RnD(screen, input, jsondata.dialogues[character]['Ask_Line'][self.key], x + 80 + paralax_x/2, y + 30 + paralax_y/2, x_len, time, tick, speed, size, color)
             if not self.frame == 0:
                 if input.t1 and input.mouse.rect_over == None:
@@ -95,18 +94,19 @@ class text_box:
                 if input.my > mid_y:
                     self.bubble_pose = 'down'
                     if input.t1:
+                        self.linedict = None
                         self.decision = 'No'
                         self.frame = 0
                 else:
                     self.bubble_pose = 'up'
                     if input.t1:
+                        self.linedict = None
                         self.decision = 'Yes'
                         self.frame = 0
             else:
                 self.bubble_pose = 'idle'
         if self.decision != 'True' and self.decision != False:
             self.scroll_ass.pose(screen, oxygen, 'be', (x - 100, y - 100), tick, 2)
-            self.render(jsondata.dialogues[character][self.decision + '_Line'][self.key]['Line'], 0, 0, x_len + 100, 69, (69, 69, 69))
             try:
                 jsondata.events[jsondata.dialogues[character][self.decision + '_Line'][self.key]['Result'][0]] = jsondata.dialogues[character][self.decision + '_Line'][self.key]['Result'][1]
                 jsondata.save('events')

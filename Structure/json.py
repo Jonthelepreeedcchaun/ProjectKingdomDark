@@ -1,6 +1,6 @@
 class json_obj:
-    def __init__(self):
-        self.retrieve()
+    def __init__(self, path = 'Storage/'):
+        self.retrieve(path)
     def retrieve(self, path = 'Storage/'):
         import os, json
         for this in os.listdir(path):

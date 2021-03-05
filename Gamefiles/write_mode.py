@@ -88,7 +88,7 @@ def add_question(jsondata, character, dialogue, scroll):
         if not answer in jsondata.events:
             jsondata.events.update({answer: 0})
             jsondata.save('events')
-        jsondata.dialogues[character]['Yes_Line'][dialogue].update({'Result': [answer, 1]})
+        jsondata.dialogues[character]['No_Line'][dialogue].update({'Result': [answer, 1]})
         jsondata.save('dialogues')
     clear()
     jsondata.save('dialogues')
@@ -332,16 +332,21 @@ def write_mode(jsondata):
     print('The current characters with dialogue are:')
     for this in jsondata.dialogues:
         print('\n    ' + this)
-    menulist = list(jsondata.dialogues.keys())
+    menulist = []
+    for this in jsondata.dialogues.keys():
+        menulist.append(this)
+    menulist.append('Add Character')
     character = makemenu(menulist, title="Enter the character you want to access")
     if character in jsondata.dialogues:
         access_character_attributes(jsondata, character)
-    if not character in jsondata.dialogues:
+    if character == 'Add Character':
         clear()
-        print('Character not in dialogues dictionary.')
-        answer = input('Do you want to add ' + character + ' to the dialogue dictionary? (y/n) \n')
+        answer = input('Are you sure you want to add a new character? (y/n) \n')
         if answer == 'y':
+            clear()
+            character = input('What is the name of this character?\n')
             jsondata.dialogues.update({character: {"Position": [1500, 650], "Immutable_Dialogue_List": [], "Dialogue_List": [], "Dialogues": {}}})
+            jsondata.save('dialogues')
             clear()
             input('Default position assigned.\nPress (Enter) to proceed to creating the first dialogue for this character.\n')
             create(jsondata, character)

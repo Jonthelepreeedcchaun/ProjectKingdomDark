@@ -12,7 +12,7 @@ class mouse_obj(ass):
     def rect_intake(self, screen, input):
         self.rect_over = None
         while len(self.rect_list) > 1:
-            self.rect_list.remove(0)
+            self.rect_list.remove(self.rect_list[0])
         if len(self.rect_list) == 1:
             self.rect_over = self.rect_list[0]
         self.rect_list = []
