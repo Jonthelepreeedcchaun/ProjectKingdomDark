@@ -345,7 +345,7 @@ def write_mode(jsondata):
         if answer == 'y':
             clear()
             character = input('What is the name of this character?\n')
-            jsondata.dialogues.update({character: {"Position": [1500, 650], "Immutable_Dialogue_List": [], "Dialogue_List": [], "Dialogues": {}}})
+            jsondata.dialogues.update({character: {"Position": [1500, 650], "Immutable_Dialogue_List": [], "Dialogue_List": [], "Dialogues": {}, "Ask_Line": {}, "Yes_Line": {}, "No_Line": {}}})
             jsondata.save('dialogues')
             clear()
             input('Default position assigned.\nPress (Enter) to proceed to creating the first dialogue for this character.\n')

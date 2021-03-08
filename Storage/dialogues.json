@@ -151,5 +151,40 @@
                 "Line": "Well, it was worth a shot. Thanks for hearing me out."
             }
         }
+    },
+    "suit": {
+        "Position": [
+            1500,
+            350
+        ],
+        "Immutable_Dialogue_List": [
+            "greetings"
+        ],
+        "Dialogue_List": [
+            "greetings"
+        ],
+        "Dialogues": {
+            "greetings": {
+                "0": {
+                    "Char": "suit",
+                    "Message": "Salutations."
+                },
+                "1": {
+                    "Char": "hatlor",
+                    "Message": "Who are you?"
+                },
+                "2": {
+                    "Char": "suit",
+                    "Message": "A friend, a foe. It is not important right now."
+                },
+                "3": {
+                    "Char": "suit",
+                    "Message": "What is important is if this sprite is the right size."
+                }
+            }
+        },
+        "Ask_Line": {},
+        "Yes_Line": {},
+        "No_Line": {}
     }
 }

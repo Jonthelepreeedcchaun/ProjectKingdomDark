@@ -11,7 +11,7 @@ class character_event_obj:
                     self.dict.update({dial: [char, int]})
                     int += 1
         for dial in jsondata.schedule_r:
-            if jsondata.day >= jsondata.schedule_r[dial][1] and randal(0, 10) in jsondata.schedule_r[dial][0]:
+            if jsondata.day >= jsondata.schedule_r[dial][1] and randal(0, 9) in jsondata.schedule_r[dial][0]:
                 for char in char_list:
                     if dial in jsondata.dialogues[char.name]["Dialogues"]:
                         self.dict.update({dial: [char, 'r']})

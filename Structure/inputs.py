@@ -30,12 +30,14 @@ class input_object:
         if not self.m2: self.t2_v = 0
         for this in jsondata.keys:
             exec('self.' + jsondata.keys[this] + '_t = 0')
+        self.char = None
         for this in pg.event.get():
             if this.type == pg.KEYDOWN:
                 if this.key in self.intkeys:
                     exec('self.' + jsondata.keys[str(this.key)] + ' = 1')
                     exec('self.' + jsondata.keys[str(this.key)] + '_t = 1')
                     self.keydict.update({jsondata.keys[str(this.key)]: 1})
+                    self.char = jsondata.keys[str(this.key)]
             if this.type == pg.KEYUP:
                 if this.key in self.intkeys:
                     exec('self.' + jsondata.keys[str(this.key)] + ' = 0')

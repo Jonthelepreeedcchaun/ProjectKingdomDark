@@ -29,7 +29,7 @@ class duskscroll_obj:
     def show(self, screen, oxygen, input, jsondata, tick):
         if self.arrow_ass.pose(screen, oxygen, 'be', (765, 720), tick, -8).collidepoint(input.mx, input.my) and input.t1:
             return True
-        self.message_display(screen, 'Day ' + str(1), 1920/2, 200, 250, tick)
+        self.message_display(screen, 'Day ' + str(jsondata.day), 1920/2, 200, 250, tick)
         number = 0
         for this in jsondata.stats:
             number += 1
