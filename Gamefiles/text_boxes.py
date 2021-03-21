@@ -6,7 +6,7 @@ class text_box:
     def __init__(self):
         from Gamefiles.ass_processing import ass, speech_obj; import os
         self.linedict = None; self.browse = 0; self.dialength = 1
-        self.font = 1; self.ticktrack = 1; self.decision = False; self.key = None
+        self.font = 1; self.ticktrack = 1; self.decision = False; self.key = None; self.result = False
         self.scroll_ass = ass(['scroll_be1.png', 'scroll_be2.png', 'scroll_be3.png'], path = 'Ass/Textbox/', name = 'scroll');
         self.face_ass_dict = {}; self.face_ass_back_dict = {}
         for this in os.listdir(os.path.join('Ass','Textbox')):
@@ -22,6 +22,7 @@ class text_box:
         self.donewriting = False
         self.key = None
         self.linedict = None
+        self.result = False
     def message_display(self, screen, text, x, y, size, color, tick = None):
         import pygame as pg
         font = None
@@ -106,12 +107,28 @@ class text_box:
             else:
                 self.bubble_pose = 'idle'
         if self.decision != 'True' and self.decision != False:
+            if hasattr(self, 'event_changed'):
+                self.delattr('event_changed')
             self.scroll_ass.pose(screen, oxygen, 'be', (x - 100, y - 100), tick, 2)
-            try:
-                jsondata.events[jsondata.dialogues[character][self.decision + '_Line'][self.key]['Result'][0]] = jsondata.dialogues[character][self.decision + '_Line'][self.key]['Result'][1]
-                jsondata.save('events')
-            except:
-                pass
+            if not self.result:
+                try:
+                    jsondata.events[jsondata.dialogues[character][self.decision + '_Line'][self.key]['Result'][0]] = jsondata.dialogues[character][self.decision + '_Line'][self.key]['Result'][1]
+                    jsondata.save('events')
+                    self.event_changed = True
+                except:
+                    self.event_changed = False
+                try:
+                    stat_dict = jsondata.dialogues[character][self.decision + '_Line'][self.key]['stats']
+                    for stat in stat_dict:
+                        jsondata.stats[stat] += stat_dict[stat]
+                    jsondata.save('stats')
+                    jsondata.save('events')
+                except:
+                    pass
+                self.result = True
+            if hasattr(self, 'event_changed') and not self.event_changed:
+                file = ''
+                
             self.RnD(screen, input, jsondata.dialogues[character][self.decision + '_Line'][self.key]['Line'], x + 230 + paralax_x/2, y + 30 + paralax_y/2, x_len, time, tick, speed, size, color)
             self.face_ass_back_dict[character].pose(screen, oxygen, 'be', (x - 420, y - 150), tick, 2)
             self.face_ass_dict[character].pose(screen, oxygen, 'be', (x - 420, y - 150), tick, 5)

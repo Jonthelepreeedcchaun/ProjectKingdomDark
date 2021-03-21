@@ -5,48 +5,14 @@
             650
         ],
         "Immutable_Dialogue_List": [
-            "tutorial",
-            "tax"
+            "tax",
+            "showing_ropes"
         ],
         "Dialogue_List": [
-            "tutorial",
-            "tax"
+            "tax",
+            "showing_ropes"
         ],
         "Dialogues": {
-            "tutorial": {
-                "0": {
-                    "Char": "advisor",
-                    "Message": "Good morning, Lord Hatlor."
-                },
-                "1": {
-                    "Char": "hatlor",
-                    "Message": "Hello, my loyal advisor."
-                },
-                "2": {
-                    "Char": "advisor",
-                    "Message": "We have a lot to go over today."
-                },
-                "3": {
-                    "Char": "advisor",
-                    "Message": "Er, on second thought, this game doesn't seem to have a whole lot of mechanics in it yet."
-                },
-                "4": {
-                    "Char": "advisor",
-                    "Message": "When the game is done, this dialogue will be a lot more helpful."
-                },
-                "5": {
-                    "Char": "hatlor",
-                    "Message": "..."
-                },
-                "6": {
-                    "Char": "hatlor",
-                    "Message": "Ok then, I guess?"
-                },
-                "7": {
-                    "Char": "advisor",
-                    "Message": "Smell ya later, my lord."
-                }
-            },
             "tax": {
                 "0": {
                     "Char": "advisor",
@@ -60,24 +26,23 @@
                     "Char": "advisor",
                     "Message": "Your people have paid their taxes. I'm sure you could find a constructive way to use their gold."
                 }
+            },
+            "showing_ropes": {
+                "0": {
+                    "Char": "advisor",
+                    "Message": "It's your first day as Lord, my Lord."
+                }
             }
         },
         "Ask_Line": {
-            "tutorial": "Did you get all of that, my Lord?",
             "tax": "Shall we add the money to the coffers, my Lord?"
         },
         "Yes_Line": {
-            "tutorial": {
-                "Line": "Very good."
-            },
             "tax": {
                 "Line": "Very good."
             }
         },
         "No_Line": {
-            "tutorial": {
-                "Line": "Bah."
-            },
             "tax": {
                 "Line": "Well, I guess I will give them back their gold."
             }
@@ -143,7 +108,11 @@
                 "Result": [
                     "carnival",
                     1
-                ]
+                ],
+                "stats": {
+                    "gold": 15,
+                    "morale": 15
+                }
             }
         },
         "No_Line": {

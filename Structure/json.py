@@ -13,4 +13,4 @@ class json_obj:
             with open('Storage/' + attr + '.json', 'w', encoding = 'utf-8') as f:
                 exec('json.dump(self.' + attr + ', f, ensure_ascii = False, indent = 4)')
         else:
-            print('Jsondata Error: ' + attr + '.json inaccessable')
+            raise Exception('Jsondata Error: ' + attr + '.json inaccessable')

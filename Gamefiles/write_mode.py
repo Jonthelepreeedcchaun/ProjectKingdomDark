@@ -76,13 +76,31 @@ def add_question(jsondata, character, dialogue, scroll):
             jsondata.save('events')
         jsondata.dialogues[character]['Yes_Line'][dialogue].update({'Result': [answer, 1]})
         jsondata.save('dialogues')
+    answer = input('Does saying yes change any stats? (y/n)\nStats are Gold, Morale, and Subjects.\n')
+    if answer == 'y':
+        stat_leave = False
+        while not stat_leave:
+            clear()
+            answer = makemenu(['gold', 'morale', 'subjects'], 'Which stat do you want to change?')
+            clear()
+            if answer in ['gold', 'morale', 'subjects']:
+                stat = answer
+                print('How much does this stat change by?')
+                answer = input('Enter a negative number if the effect is negative. \n')
+                amount = int(answer)
+                jsondata.dialogues[character]['Yes_Line'][dialogue].update({'stats': [stat, amount]})
+                jsondata.save('dialogues')
+            clear()
+            answer = input('Are you done changing the stats? (y/n) \n')
+            if answer == 'y':
+                stat_leave = True
     clear()
     print('What does ' + character + ' say if the player does not accept?')
     print('Ex: I understand, my Lord.\n')
     answer = input()
     jsondata.dialogues[character]['No_Line'][dialogue]["Line"] = answer
     clear()
-    answer = input('Does saying yes cause an event? (y/n)\n')
+    answer = input('Does saying no cause an event? (y/n)\n')
     if answer == 'y':
         answer = input('What event?\n')
         if not answer in jsondata.events:
@@ -90,6 +108,27 @@ def add_question(jsondata, character, dialogue, scroll):
             jsondata.save('events')
         jsondata.dialogues[character]['No_Line'][dialogue].update({'Result': [answer, 1]})
         jsondata.save('dialogues')
+    answer = input('Does saying no change any stats? (y/n)\nStats are Gold, Morale, and Subjects.\n')
+    if answer == 'y':
+        stat_leave = False
+        while not stat_leave:
+            clear()
+            answer = makemenu(['gold', 'morale', 'subjects'], 'Which stat do you want to change?')
+            clear()
+            if answer in ['gold', 'morale', 'subjects']:
+                stat = answer
+                print('How much does this stat change by?')
+                answer = input('Enter a negative number if the effect is negative. \n')
+                amount = int(answer)
+                if not 'stats' in jsondata.dialogues[character]['No_Line'][dialogue]:
+                    jsondata.dialogues[character]['No_Line'][dialogue].update({'stats': {stat: amount}})
+                else:
+                    jsondata.dialogues[character]['No_Line'][dialogue]['stats'].update({stat: amount})
+                jsondata.save('dialogues')
+            clear()
+            answer = input('Are you done changing the stats? (y/n) \n')
+            if answer == 'y':
+                stat_leave = True
     clear()
     jsondata.save('dialogues')
     input('Question and responses saved. Returning to dialogue writing menu. (Enter)')
@@ -209,13 +248,36 @@ def write_dialogue(jsondata, character, dialogue, scroll):
                 print('Question - ' + jsondata.dialogues[character]['Ask_Line'][dialogue])
                 print('Yes_Line - ' + jsondata.dialogues[character]['Yes_Line'][dialogue]["Line"])
                 print('No_Line - ' + jsondata.dialogues[character]['No_Line'][dialogue]["Line"])
-                answer = input('Do you want to edit this dialogue? (y/n)\n')
+                answer = input('Do you want to overwrite this question? (y/n)\n')
                 if answer == 'y':
                     add_question(jsondata, character, dialogue, scroll)
                 else:
                     write_dialogue(jsondata, character, dialogue, scroll)
             else:
                 add_question(jsondata, character, dialogue, scroll)
+        elif answer == 'del_q':
+            if dialogue in jsondata.dialogues[character]['Ask_Line']:
+                clear()
+                print('This dialogue question is as follows:')
+                print('Question - ' + jsondata.dialogues[character]['Ask_Line'][dialogue])
+                print('Yes_Line - ' + jsondata.dialogues[character]['Yes_Line'][dialogue]["Line"])
+                print('No_Line - ' + jsondata.dialogues[character]['No_Line'][dialogue]["Line"])
+                answer = input('Are you sure you want to delete this question? (y/n)\n')
+                if answer == 'y':
+                    del jsondata.dialogues[character]['Ask_Line'][dialogue]
+                    del jsondata.dialogues[character]['Yes_Line'][dialogue]
+                    del jsondata.dialogues[character]['No_Line'][dialogue]
+                    jsondata.save('dialogues')
+                    clear()
+                    input('Question deleted from dialogue. (Space)')
+                    write_dialogue(jsondata, character, dialogue, scroll)
+                else:
+                    write_dialogue(jsondata, character, dialogue, scroll)
+            else:
+                clear()
+                print('Question does not exist for dialogue ' + dialogue + '.')
+                input('Returning to write menu. (Space)')
+                write_dialogue(jsondata, character, dialogue, scroll)
         else:
             write_dialogue_instruction(jsondata, character, dialogue, scroll)
 
@@ -229,6 +291,7 @@ def write_dialogue_instruction(jsondata, character, dialogue, scroll = 0):
     print('To create a new piece of dialogue ahead of the current, type add_next.')
     print('To create one before, type add_prev.')
     print('To add or edit a question to the end of the dialogue, type add_q.')
+    print('To remove a question from a dialogue, type del_q.')
     answer = input('(Enter)\n')
     if answer != 'back':
         write_dialogue(jsondata, character, dialogue, scroll)
@@ -263,7 +326,9 @@ def create(jsondata, character):
     else:
         print('There are currently no dialogues for ' + character + '.')
     answer = input('\nType the name of the dialogue you want to create.\n')
-    if not answer in immu_list:
+    if answer == 'back':
+        access_character_attributes(jsondata, character)
+    elif not answer in immu_list:
         jsondata.dialogues[character]['Dialogue_List'].append(answer)
         jsondata.dialogues[character]['Immutable_Dialogue_List'].append(answer)
         jsondata.dialogues[character]['Dialogues'].update({answer: {"0": {"Char": "hatlor", "Message": "This message in " + answer + " is to be overwritten."}}})
@@ -290,11 +355,25 @@ def delete(jsondata, character):
         if answer in immu_list:
             clear()
             dialogue = answer
-            answer = input('Are you ABSOLUTELY sure you want to delete this? (y/n)')
+            answer = input('Are you ABSOLUTELY sure you want to delete this? (y/n)\n')
             if answer == 'y':
                 jsondata.dialogues[character]['Dialogue_List'].remove(dialogue)
                 jsondata.dialogues[character]['Immutable_Dialogue_List'].remove(dialogue)
                 del jsondata.dialogues[character]['Dialogues'][dialogue]
+                if dialogue in jsondata.dialogues[character]['Ask_Line']:
+                    del jsondata.dialogues[character]['Ask_Line'][dialogue]
+                    del jsondata.dialogues[character]['Yes_Line'][dialogue]
+                    del jsondata.dialogues[character]['No_Line'][dialogue]
+                jsondata.save('dialogues')
+                for day in jsondata.schedule:
+                    for dial in jsondata.schedule[day]:
+                        if dial == dialogue:
+                            jsondata.schedule[day].remove(dialogue)
+                jsondata.save('schedule')
+                if dialogue in jsondata.schedule_r:
+                    del jsondata.schedule_r[dialogue]
+                jsondata.save('schedule_r')
+                dialogue_access(jsondata, character)
             else:
                 dialogue_access(jsondata, character)
         else:

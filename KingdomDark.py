@@ -59,7 +59,7 @@ for this in os.listdir('Ass/'):
                 exec('character_list.append(' + obj_title + ')')
             initobj_list.append(obj_title)
 
-mode = "schedule"
+mode = "write" # write, schedule, main_menu, game_loop
 
 origin_taco = chronic_tacos.time(); ticksync.tick = 1; menu = ass(['menu.png'])
 while True:

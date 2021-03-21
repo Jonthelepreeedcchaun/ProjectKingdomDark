@@ -1,1 +1,5 @@
-{"Gold": 100, "Morale": 50, "Subjects": 10}
+{
+    "gold": 115,
+    "morale": 65,
+    "subjects": 20
+}
