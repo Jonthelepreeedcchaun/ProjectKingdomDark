@@ -42,7 +42,6 @@ class text_box:
         dimension = largeText.render(text, True, color).get_rect()
         return(TextRect)
     def box(self, screen, oxygen, jsondata, input, text_dict, key, x, y, x_len, time, tick, speed = 0.0001, size = 45, color = (0, 0, 0)):
-        print(self.key)
         paralax_x, paralax_y = oxygen.paralax_x, oxygen.paralax_y
         self.dialength = len(text_dict)
         character = text_dict[str(self.browse)]['Char']
@@ -53,8 +52,10 @@ class text_box:
         if self.decision == False:
             self.scroll_ass.pose(screen, oxygen, 'be', (x - 100, y - 100), tick, 2)
             self.RnD(screen, input, text_dict[str(self.browse)]['Message'], x + 230 + paralax_x/2, y + 30 + paralax_y/2, x_len, time, tick, speed, size, color)
-            self.face_ass_back_dict[character].pose(screen, oxygen, 'be', (x - 420, y - 150), tick, 2)
-            self.face_ass_dict[character].pose(screen, oxygen, 'be', (x - 420, y - 150), tick, 5)
+            if character in self.face_ass_back_dict:
+                self.face_ass_back_dict[character].pose(screen, oxygen, 'be', (x - 420, y - 150), tick, 2)
+            if character in self.face_ass_dict:
+                self.face_ass_dict[character].pose(screen, oxygen, 'be', (x - 420, y - 150), tick, 5)
             if input.t1 and input.mouse.rect_over == None:
                 if self.donewriting:
                     self.clear()
@@ -109,7 +110,7 @@ class text_box:
                 self.bubble_pose = 'idle'
         if self.decision != 'True' and self.decision != False:
             if hasattr(self, 'event_changed'):
-                self.delattr('event_changed')
+                delattr(self, 'event_changed')
             self.scroll_ass.pose(screen, oxygen, 'be', (x - 100, y - 100), tick, 2)
             if not self.result:
                 try:
@@ -132,7 +133,7 @@ class text_box:
                 for dial in jsondata.schedule[str(jsondata.day)]:
                     if dial == self.key:
                         confirm = True
-                        jsondata.schedule[str(jsondata.day)].pop(self.key)
+                        jsondata.schedule[str(jsondata.day)].remove(self.key)
                 if confirm:
                     int = 1
                     if not str(jsondata.day + 4) in jsondata.schedule:
@@ -143,8 +144,10 @@ class text_box:
                     jsondata.schedule[str(jsondata.day + 4)].append(self.key)
                     jsondata.save('schedule')
             self.RnD(screen, input, jsondata.dialogues[character][self.decision + '_Line'][self.key]['Line'], x + 230 + paralax_x/2, y + 30 + paralax_y/2, x_len, time, tick, speed, size, color)
-            self.face_ass_back_dict[character].pose(screen, oxygen, 'be', (x - 420, y - 150), tick, 2)
-            self.face_ass_dict[character].pose(screen, oxygen, 'be', (x - 420, y - 150), tick, 5)
+            if character in self.face_ass_back_dict:
+                self.face_ass_back_dict[character].pose(screen, oxygen, 'be', (x - 420, y - 150), tick, 2)
+            if character in self.face_ass_dict:
+                self.face_ass_dict[character].pose(screen, oxygen, 'be', (x - 420, y - 150), tick, 5)
             if input.t1 and input.mouse.rect_over == None:
                 self.browse += 1
     def clear(self):
