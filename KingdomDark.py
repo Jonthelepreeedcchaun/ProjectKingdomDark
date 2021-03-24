@@ -1,5 +1,9 @@
 import os, threading, time as chronic_tacos
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
+
+mode = makemenu(["write", "schedule", "main_menu"], title='Please Select One') ## debug menu # write, schedule, main_menu, game_loop
+
+
 import pygame as pg
 pg.init()
 screen = pg.display.set_mode((0, 0), pg.FULLSCREEN)
@@ -58,8 +62,6 @@ for this in os.listdir('Ass/'):
             if obj_title in jsondata.dialogues:
                 exec('character_list.append(' + obj_title + ')')
             initobj_list.append(obj_title)
-
-mode = makemenu(["write", "schedule", "main_menu"], title='Please Select One') ## debug menu # write, schedule, main_menu, game_loop
 
 origin_taco = chronic_tacos.time(); ticksync.tick = 1; menu = ass(['menu.png'])
 while True:
