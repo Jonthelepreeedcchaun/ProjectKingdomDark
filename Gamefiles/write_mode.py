@@ -407,7 +407,11 @@ def validateass(jsondata, character):
         filelist.append(character+i+".png")
     for i in filelist:
         os.system("cd && echo "+i)
-        if i not in cache: shutil.copy(os.path.join("Ass","Placeholder.png"), os.path.join("Ass",i), follow_symlinks=True)
+        if i not in cache:
+            try:
+                shutil.copy(os.path.join("Ass","Placeholder.png"), os.path.join("Ass",i), follow_symlinks=True)
+            except:
+                pass
     # filedict = {i:"0" for i in filelist}
     # for i in filedict:
     #     if i in cache:
