@@ -400,6 +400,21 @@ def access_character_attributes(jsondata, character):
     else:
         write_mode(jsondata)
 
+def validateass(jsondata, character):
+    import os, shutil
+    cache = os.listdir('Ass/'); chequelist = ["_stand1","_stand2","_stand3","_flipp1","_flipp2","_flipp3"]; filelist = []
+    for i in chequelist:
+        filelist.append(character+i+".png")
+    for i in filelist:
+        os.system("cd && echo "+i)
+        if i not in cache: shutil.copy(os.path.join("Ass","Placeholder.png"), os.path.join("Ass",i), follow_symlinks=True)
+    # filedict = {i:"0" for i in filelist}
+    # for i in filedict:
+    #     if i in cache:
+    #         filedict[i] = 1
+    # for i in filedict:
+    #     if
+
 def write_mode(jsondata):
     clear()
     print('-- WRITE MODE -- \n')
@@ -420,6 +435,7 @@ def write_mode(jsondata):
         if answer == 'y':
             clear()
             character = input('What is the name of this character?\n')
+            validateass(jsondata, character)
             jsondata.dialogues.update({character: {"Position": [1500, 650], "Immutable_Dialogue_List": [], "Dialogue_List": [], "Dialogues": {}, "Ask_Line": {}, "Yes_Line": {}, "No_Line": {}}})
             jsondata.save('dialogues')
             clear()

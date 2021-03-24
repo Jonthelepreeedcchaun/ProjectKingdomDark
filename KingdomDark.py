@@ -1,18 +1,17 @@
 import os, threading, time as chronic_tacos
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 
-mode = makemenu(["write", "schedule", "main_menu"], title='Please Select One') ## debug menu # write, schedule, main_menu, game_loop
+for this in ['Structure/', 'Gamefiles/']:
+    for that in os.listdir(this):
+        if that[-3:] == '.py': exec('from ' + this[:-1] + '.' + that[:-3] + ' import *')
 
+mode = makemenu(["main_menu", "write", "schedule"], title='Please Select One') ## debug menu # write, schedule, main_menu, game_loop
 
 import pygame as pg
 pg.init()
 screen = pg.display.set_mode((0, 0), pg.FULLSCREEN)
 
 pg.display.set_caption('KingdomDark'); pg.mouse.set_visible(False)
-
-for this in ['Structure/', 'Gamefiles/']:
-    for that in os.listdir(this):
-        if that[-3:] == '.py': exec('from ' + this[:-1] + '.' + that[:-3] + ' import *')
 
 def magic(screen, oxygen, inpt, origin_taco, jsondata, time = None):
     import time as chronic_tacos, pygame as pg

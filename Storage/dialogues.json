@@ -196,5 +196,100 @@
                 "Line": ";("
             }
         }
+    },
+    "testie": {
+        "Position": [
+            1500,
+            650
+        ],
+        "Immutable_Dialogue_List": [
+            "testdialouge"
+        ],
+        "Dialogue_List": [
+            "testdialouge"
+        ],
+        "Dialogues": {
+            "testdialouge": {
+                "0": {
+                    "Char": "hatlor",
+                    "Message": "this is a test dialouge"
+                },
+                "1": {
+                    "Char": "testie",
+                    "Message": "it sure is"
+                }
+            }
+        },
+        "Ask_Line": {},
+        "Yes_Line": {},
+        "No_Line": {}
+    },
+    "jackal": {
+        "Position": [
+            1500,
+            650
+        ],
+        "Immutable_Dialogue_List": [
+            "jackalface"
+        ],
+        "Dialogue_List": [
+            "jackalface"
+        ],
+        "Dialogues": {
+            "jackalface": {
+                "0": {
+                    "Char": "jackal",
+                    "Message": "im gonna steal your face.  This is foreshadowing."
+                }
+            }
+        },
+        "Ask_Line": {},
+        "Yes_Line": {},
+        "No_Line": {}
+    },
+    "god": {
+        "Position": [
+            1500,
+            650
+        ],
+        "Immutable_Dialogue_List": [
+            "warning"
+        ],
+        "Dialogue_List": [
+            "warning"
+        ],
+        "Dialogues": {
+            "warning": {
+                "0": {
+                    "Char": "hatlor",
+                    "Message": "is somebody there?"
+                }
+            }
+        },
+        "Ask_Line": {
+            "warning": "I am God.  Give me worship or I will give you much trouble."
+        },
+        "Yes_Line": {
+            "warning": {
+                "Line": "wise",
+                "Result": [
+                    "religion",
+                    1
+                ],
+                "stats": [
+                    "gold",
+                    -100
+                ]
+            }
+        },
+        "No_Line": {
+            "warning": {
+                "Line": "pity.",
+                "stats": {
+                    "morale": -800,
+                    "subjects": -100
+                }
+            }
+        }
     }
 }
