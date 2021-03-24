@@ -42,6 +42,7 @@ class text_box:
         dimension = largeText.render(text, True, color).get_rect()
         return(TextRect)
     def box(self, screen, oxygen, jsondata, input, text_dict, key, x, y, x_len, time, tick, speed = 0.0001, size = 45, color = (0, 0, 0)):
+        print(self.key)
         paralax_x, paralax_y = oxygen.paralax_x, oxygen.paralax_y
         self.dialength = len(text_dict)
         character = text_dict[str(self.browse)]['Char']
@@ -126,9 +127,21 @@ class text_box:
                 except:
                     pass
                 self.result = True
-            if hasattr(self, 'event_changed') and not self.event_changed:
-                file = ''
-                
+            if hasattr(self, 'event_changed') and not self.event_changed and not self.key in jsondata.schedule_r:
+                confirm = False
+                for dial in jsondata.schedule[str(jsondata.day)]:
+                    if dial == self.key:
+                        confirm = True
+                        jsondata.schedule[str(jsondata.day)].pop(self.key)
+                if confirm:
+                    int = 1
+                    if not str(jsondata.day + 4) in jsondata.schedule:
+                        while not str(jsondata.day + 4) in jsondata.schedule:
+                            if not str(jsondata.day + int) in jsondata.schedule:
+                                jsondata.schedule.update({str(jsondata.day + int): []})
+                            int += 1
+                    jsondata.schedule[str(jsondata.day + 4)].append(self.key)
+                    jsondata.save('schedule')
             self.RnD(screen, input, jsondata.dialogues[character][self.decision + '_Line'][self.key]['Line'], x + 230 + paralax_x/2, y + 30 + paralax_y/2, x_len, time, tick, speed, size, color)
             self.face_ass_back_dict[character].pose(screen, oxygen, 'be', (x - 420, y - 150), tick, 2)
             self.face_ass_dict[character].pose(screen, oxygen, 'be', (x - 420, y - 150), tick, 5)

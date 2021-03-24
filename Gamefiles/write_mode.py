@@ -1,4 +1,3 @@
-
 from cursesmenu import *
 from cursesmenu.items import *
 

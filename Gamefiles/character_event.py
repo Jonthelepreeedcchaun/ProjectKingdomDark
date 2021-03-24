@@ -4,6 +4,8 @@ class character_event_obj:
     def render(self, char_list, jsondata):
         from random import randint as randal
         self.dict = {}; int = 1
+        if not str(jsondata.day) in jsondata.schedule:
+            raise Exception('No dialogues for day ' + str(jsondata.day))
         dialogue_list = jsondata.schedule[str(jsondata.day)]
         for dial in dialogue_list:
             for char in char_list:
