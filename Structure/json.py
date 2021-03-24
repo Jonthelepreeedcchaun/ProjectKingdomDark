@@ -5,7 +5,7 @@ class json_obj:
         import os, json
         for this in os.listdir(path):
             if this[-5:] == ".json":
-                with open('Storage/' + this, 'r') as f:
+                with open('Storage/' + this, 'r', encoding='utf-8') as f:
                     exec('self.' + this[:-5] + ' = json.load(f)')
     def save(self, attr):
         import json

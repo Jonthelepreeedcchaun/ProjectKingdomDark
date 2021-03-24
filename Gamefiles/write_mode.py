@@ -394,10 +394,7 @@ def access_character_attributes(jsondata, character):
     clear()
     dict = jsondata.dialogues[character]
     check_dict(jsondata, character)
-    print('Type one of the following access keys:')
-    for this in ['position', 'dialogue']:
-        print('\n    ' + this.lower())
-    answer = input('\n')
+    answer = makemenu(['position', 'dialogue'], title="select one of the following access keys")
     if answer in ['position', 'dialogue']:
         exec(answer + '_access(jsondata, character)')
     else:

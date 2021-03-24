@@ -155,5 +155,46 @@
         "Ask_Line": {},
         "Yes_Line": {},
         "No_Line": {}
+    },
+    "fine": {
+        "Position": [
+            1500,
+            650
+        ],
+        "Immutable_Dialogue_List": [
+            "fineintro"
+        ],
+        "Dialogue_List": [
+            "fineintro"
+        ],
+        "Dialogues": {
+            "fineintro": {
+                "0": {
+                    "Char": "fine",
+                    "Message": "Ugh, fine, I guess you are my little PogChamp"
+                }
+            }
+        },
+        "Ask_Line": {
+            "fineintro": "Come here."
+        },
+        "Yes_Line": {
+            "fineintro": {
+                "Line": "👁",
+                "Result": [
+                    "finedeath",
+                    1
+                ],
+                "stats": [
+                    "subjects",
+                    -1
+                ]
+            }
+        },
+        "No_Line": {
+            "fineintro": {
+                "Line": ";("
+            }
+        }
     }
 }
