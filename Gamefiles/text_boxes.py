@@ -56,6 +56,7 @@ class text_box:
                 self.face_ass_back_dict[character].pose(screen, oxygen, 'be', (x - 420, y - 150), tick, 2)
             if character in self.face_ass_dict:
                 self.face_ass_dict[character].pose(screen, oxygen, 'be', (x - 420, y - 150), tick, 5)
+            self.message_display(screen, character.lower().capitalize(),x+500+paralax_x/2, y - 50+paralax_y/2,45,(138,0,138),tick=tick)
             if input.t1 and input.mouse.rect_over == None:
                 if self.donewriting:
                     self.clear()
