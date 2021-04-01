@@ -308,7 +308,7 @@ class schedule_UI_obj:
                 if 'chance' in block.info:
                     for block_name in self.block_dict:
                         other_block = self.block_dict[block_name]
-                        if int(other_block.info['day']) == int(day) and not block == other_block:
+                        if 'day' in other_block.info and int(other_block.info['day']) == int(day) and not block == other_block:
                             block_x_list.append(other_block.x)
                     block.x = (len(block_x_list) * 100) + 100
                 else:
